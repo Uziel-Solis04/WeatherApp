@@ -12,7 +12,7 @@ search.addEventListener('click', () => {
     if (city == '')
         return;
     
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}').then(Response => response.json()).then(json => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`).then(Response => response.json()).then(json => {
 
         if(json.cod == '404'){
             container.style.height = '400px';
@@ -29,8 +29,8 @@ search.addEventListener('click', () => {
         const image = document.querySelector('.weather-box img');
         const temperature = document.querySelector('.weather-box .description');
         const description = document.querySelector('.weather-box .description');
-        const humidity = document.querySelector('.weather-box .humidity');
-        const wind = document.querySelector('.weather-box .wind span');
+        const humidity = document.querySelector('.weather-details .humidity');
+        const wind = document.querySelector('.weather-details .wind span');
         
         switch (json.weather[0].main) {
             case 'Clear':
@@ -52,10 +52,10 @@ search.addEventListener('click', () => {
                 image.src = '';
         }
 
-        temperature.innerHTML = '${parseInt(json.main.temp)}<span>°C</span>';
-        description.innerHTML = '${json.weather[0].description}';
-        humidity.innerHTML = '${json.main.humidity}%';
-        wind.innerHTML = '${parseInt(json.wind.speed)}Km/h';
+        temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
+        description.innerHTML = `${json.weather[0].description}`;
+        humidity.innerHTML = `${json.main.humidity}%`;
+        wind.innerHTML = `${parseInt(json.wind.speed)}Km/h`;
 
         weatherBox.style.display = '';
         weatherDetails.style.display = '';
@@ -63,4 +63,4 @@ search.addEventListener('click', () => {
         weatherDetails.classList.add('fadeIn');
         container.style.height = '590px';
     });
-})
+});
